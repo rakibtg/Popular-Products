@@ -1,4 +1,4 @@
-![](screenshot.png)
+![](/screenshot.png)
 
 ## Available Scripts
 
