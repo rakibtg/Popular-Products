@@ -51,7 +51,6 @@ class App extends Component {
       ? PostData.filter( post => {
         const titleScore = compareTwoStrings(post.title, keyword)
         const snippetScore = compareTwoStrings(post.snippet, keyword)
-        // const totalScore = titleScore + snippetScore
         return titleScore >= 0.3 || snippetScore >= 0.2
       })
       : PostData
