@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './Header.css'
-import { Pane, Button, Text, Heading } from 'evergreen-ui'
+import { Pane, Heading } from 'evergreen-ui'
 
 class Header extends Component {
   
