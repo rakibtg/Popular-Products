@@ -3,11 +3,14 @@ import PostData from './data'
 import Header from './components/Header/Header'
 import PostLists from './components/PostLists/PostLists'
 import Search from './components/Search/Search'
+import SearchResults from './components/Search/SearchResults'
+import { compareTwoStrings } from 'string-similarity'
 
 class App extends Component {
 
   state = {
     posts: [],
+    searching: false,
     loading: true,
   }
 
@@ -43,15 +46,36 @@ class App extends Component {
     })
   }
 
+  handleSearching(keyword) {
+    const filters = keyword !== ''
+      ? PostData.filter( post => {
+        const titleScore = compareTwoStrings(post.title, keyword)
+        const snippetScore = compareTwoStrings(post.snippet, keyword)
+        // const totalScore = titleScore + snippetScore
+        return titleScore >= 0.3 || snippetScore >= 0.2
+      })
+      : PostData
+    this.setState({
+      posts: filters,
+      loading: true,
+      searching: keyword,
+    }, () => {
+      this.setState({
+        loading: false,
+      })
+    })
+  }
+
   render() {
-    const { posts, loading } = this.state
+    const { posts, searching, loading } = this.state
     return (
       <div className="App">
         
         <Header />
         <Search 
-          sorting={ this.handleSorting.bind(this) }/>
-        
+          sorting={this.handleSorting.bind(this)}
+          searching={this.handleSearching.bind(this)} />
+        { searching && <SearchResults total={posts.length} /> }
         {
           loading 
             ? <div>Please wait</div>
