@@ -1,4 +1,8 @@
 import React, { Component } from 'react'
+import PostData from './data'
+import Header from './components/Header/Header'
+import PostLists from './components/PostLists/PostLists'
+import Search from './components/Search/Search'
 
 class App extends Component {
 
@@ -10,7 +14,9 @@ class App extends Component {
     return (
       <div className="App">
         
-        Popular Products
+        <Header />
+        <Search />
+        <PostLists posts={PostData} />
         
       </div>
     )
