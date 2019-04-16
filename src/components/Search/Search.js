@@ -1,18 +1,36 @@
 import React, { Component } from 'react'
 import './Search.css'
-import { Pane, SegmentedControl, Text, SearchInput } from 'evergreen-ui'
+import { Pane, Button, Text, SearchInput } from 'evergreen-ui'
 
 class Search extends Component {
 
   state = {
-    options: [
-      { label: 'Votes', value: 'hourly' },
-      { label: 'Comments', value: 'daily' }
-    ],
-    value: 'hourly',
+    voteAsc: false,
+    commentsAsc: true,
+    active: 'votes',
+  }
+
+  handleSorting(type) {
+    const { sorting } = this.props
+    if( type === 'votes' ) {
+      this.setState({
+        active: 'votes',
+        voteAsc: !this.state.voteAsc
+      }, () => {
+        sorting(type, this.state.voteAsc)
+      })
+    } else {
+      this.setState({
+        active: 'comments',
+        commentsAsc: !this.state.commentsAsc
+      }, () => {
+        sorting(type, this.state.commentsAsc)
+      })
+    }
   }
 
   render() {
+    const { voteAsc, commentsAsc, active } = this.state
     return <Pane 
       display="flex" 
       padding={16} 
@@ -27,13 +45,23 @@ class Search extends Component {
           <Pane marginBottom={2} marginTop={-2}>
             <Text size={300}>Sort products by</Text>
           </Pane>
-          <SegmentedControl
-            width={240}
-            height={20}
-            options={this.state.options}
-            value={this.state.value}
-            onChange={value => this.setState({ value })}
-          />
+          <Button 
+            height={22} 
+            width={110} 
+            isActive={active === 'votes'}
+            iconBefore={voteAsc ? "arrow-down" : "arrow-up"}
+            onClick={() => this.handleSorting('votes')}>
+            Vote
+          </Button>
+          <Button 
+            height={22} 
+            width={110} 
+            marginLeft={20}
+            isActive={active === 'comments'}
+            iconBefore={commentsAsc ? "arrow-down" : "arrow-up"}
+            onClick={() => this.handleSorting('comments')}>
+            Comments
+          </Button>
         </Pane>
       </Pane>
     </Pane>
