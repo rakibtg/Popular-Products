@@ -31,6 +31,7 @@ class Search extends Component {
 
   render() {
     const { voteAsc, commentsAsc, active } = this.state
+    const { searching } = this.props
     return <Pane 
       display="flex" 
       padding={16} 
@@ -39,7 +40,11 @@ class Search extends Component {
       borderBottom="muted">
       <Pane className="app-header" display="flex" flexGrow={1}>
         <Pane flex={1} alignItems="center" display="flex">
-          <SearchInput placeholder="Search products..." height={45} width="100%" />
+          <SearchInput 
+            placeholder="Search products..." 
+            height={45} 
+            width="100%" 
+            onChange={e => searching(e.target.value)}/>
         </Pane>
         <Pane marginLeft={25}>
           <Pane marginBottom={2} marginTop={-2}>
