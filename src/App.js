@@ -23,7 +23,6 @@ class App extends Component {
         loading: false,
       })
     })
-    console.log(PostData)
   }
 
   handleSorting(type, sort) {
