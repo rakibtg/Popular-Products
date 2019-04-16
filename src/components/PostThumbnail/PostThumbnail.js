@@ -27,7 +27,7 @@ class PostThumbnail extends Component {
           borderRight="muted">
           <Pane className="app-header" display="flex" flexGrow={1}>
             <Pane marginRight={20}>
-              <img className="product-image" src={post.thumbnail} />
+              <img className="product-image" src={post.thumbnail} alt={post.title} />
             </Pane>
             <Pane flex={1} display="flex" flexDirection="column" justifyContent="center">
               <Heading size={600}>{post.title}</Heading>
