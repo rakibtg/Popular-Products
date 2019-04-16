@@ -1,4 +1,4 @@
-![](/screenshot.png)
+![](https://i.imgur.com/Phbl1Ri.png)
 
 ## Available Scripts
 
