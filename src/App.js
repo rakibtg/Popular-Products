@@ -5,6 +5,9 @@ import PostLists from './components/PostLists/PostLists'
 import Search from './components/Search/Search'
 import SearchResults from './components/Search/SearchResults'
 import { compareTwoStrings } from 'string-similarity'
+import Modal from './components/Modal/Modal'
+
+import AppProvider from './contexts'
 
 class App extends Component {
 
@@ -67,20 +70,22 @@ class App extends Component {
   render() {
     const { posts, searching, loading } = this.state
     return (
-      <div className="App">
-        
-        <Header />
-        <Search 
-          sorting={this.handleSorting.bind(this)}
-          searching={this.handleSearching.bind(this)} />
-        { searching && <SearchResults total={posts.length} /> }
-        {
-          loading 
-            ? <div>Please wait</div>
-            : <PostLists posts={posts} />
-        }
-        
-      </div>
+      <AppProvider>
+        <div className="App">
+          
+          <Header />
+          <Search 
+            sorting={this.handleSorting.bind(this)}
+            searching={this.handleSearching.bind(this)} />
+          { searching && <SearchResults total={posts.length} /> }
+          {
+            loading 
+              ? <div>Please wait</div>
+              : <PostLists posts={posts} />
+          }
+          <Modal />
+        </div>
+      </AppProvider>
     )
   }
 }
