@@ -9,7 +9,8 @@ class Header extends Component {
   render() {
     return <AppContext.Consumer>
       { context => {
-        const { handleModal } = context
+        const { handleModal, handleLoggedIn } = context
+        const { isLoggedIn, user } = context.state
         return <Pane 
           display="flex" 
           padding={16} 
@@ -21,9 +22,25 @@ class Header extends Component {
             <Pane flex={1} alignItems="center" display="flex">
               <Heading size={600}>Popular Products</Heading>
             </Pane>
-            <Button onClick={handleModal} appearance="primary">
-              Login
-            </Button>
+            { !isLoggedIn 
+              ? <Pane>
+                  <Button onClick={handleModal} appearance="primary">
+                    Login
+                  </Button>
+                </Pane>
+              : <>
+                  <Pane alignItems="center">
+                    <Heading size={600}>Welcome {user}!</Heading>
+                  </Pane>
+                  <Pane marginLeft={20}>
+                    <Button onClick={() => {
+                      handleLoggedIn('')
+                    }} appearance="primary" intent="danger">
+                      Logout
+                    </Button>
+                  </Pane>
+                </>
+            }
           </Pane>
         </Pane>
       }}
